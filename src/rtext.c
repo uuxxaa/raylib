@@ -1069,12 +1069,16 @@ bool ExportFontAsCode(Font font, const char *fileName)
 // NOTE: Uses default font
 void DrawFPS(int posX, int posY)
 {
-    const int fps = GetFPS();
+    int fps = GetFPS();
 
-    const Color color =
-        (fps < 15)? RED :    // Low FPS
-        (fps < 30)? ORANGE : // Warning FPS
-        LIME;                // Good FPS
+    Color color = LIME;    // Good FPS
+
+    if (fps < 30)
+    {
+        color = (fps < 15)
+            ? RED          // Low FPS
+            : ORANGE;      // Warning FPS
+    }
 
     DrawText(TextFormat("%2i FPS", fps), posX, posY, 20, color);
 }
